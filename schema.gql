@@ -1,0 +1,133 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Location {
+  id: Int!
+  title: String!
+  parentId: Int
+}
+
+type User {
+  id: Int!
+  username: String!
+  firstName: String
+  lastName: String
+}
+
+type RoomType {
+  id: Int!
+  roomType: String!
+}
+
+type Apartment {
+  id: Int!
+  name: String!
+  coords: String!
+  city: String!
+}
+
+type Authenticate {
+  """store token and send is as `Bearer` in header"""
+  token: String!
+
+  """user status"""
+  status: Boolean!
+
+  """user logged in"""
+  user: User!
+}
+
+type Query {
+  users: [User!]!
+  user(id: Float!, name: String): User!
+  whoAmI: User!
+  searchApartment(
+    """put part of country name"""
+    country: String
+
+    """put part of city name"""
+    city: String
+
+    """[lat, long]"""
+    coords: [Float!]
+    roomIds: [Int!]
+
+    """set radius for search"""
+    radius: Int
+  ): [Apartment!]!
+  roomType: [RoomType!]!
+  location: [Location!]!
+}
+
+type Mutation {
+  login(username: String!, password: String!): Authenticate!
+  createUser(createUserInput: CreateRegisterInput!): User!
+  updateUser(updateUserInput: UpdateRegisterInput!): User!
+  removeUser(id: Int!): User!
+  createUserApartment(createUserApartmentInput: CreateUserApartmentInput!): Apartment!
+  createRoomType(createRoomTypeInput: CreateRoomTypeInput!): RoomType!
+  createLocation(createLocationInput: CreateLocationInput!): Location!
+}
+
+input CreateRegisterInput {
+  """firstname should be filled"""
+  firstName: String!
+
+  """lastname should be filled"""
+  lastName: String!
+
+  """choose a password for login"""
+  username: String!
+
+  """choose an strong password"""
+  password: String!
+
+  """provide apartment ids as a list"""
+  apartmentIds: [Int!]!
+}
+
+input UpdateRegisterInput {
+  """firstname should be filled"""
+  firstName: String
+
+  """lastname should be filled"""
+  lastName: String
+
+  """choose a password for login"""
+  username: String
+
+  """choose an strong password"""
+  password: String
+
+  """provide apartment ids as a list"""
+  apartmentIds: [Int!]
+  id: Int!
+}
+
+input CreateUserApartmentInput {
+  """name of apartment"""
+  name: String!
+
+  """set lat and long"""
+  coords: [Float!]!
+
+  """send room type ids"""
+  roomIds: [Int!]!
+
+  """"""
+  city: Int!
+}
+
+input CreateRoomTypeInput {
+  """"""
+  roomType: String!
+}
+
+input CreateLocationInput {
+  """"""
+  title: String!
+
+  """"""
+  parentId: Int
+}
